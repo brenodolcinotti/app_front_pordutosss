@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { CategoryService } from '../services/apiService';
 import CategoryList from '../components/CategoryList';
 import CategoryForm from '../components/CategoryForm';
+import './Pages.css';
 
 const CategoriesPage = () => {
     const [categories, setCategories] = useState([]);

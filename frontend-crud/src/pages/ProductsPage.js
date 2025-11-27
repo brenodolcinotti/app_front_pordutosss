@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { ProductService } from '../services/apiService';
 import ProductList from '../components/ProductList';
 import ProductForm from '../components/ProductForm';
+import './Pages.css';
 
 const ProductsPage = () => {
     const [products, setProducts] = useState([]);
