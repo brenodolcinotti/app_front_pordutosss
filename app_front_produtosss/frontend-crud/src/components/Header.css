@@ -1,0 +1,29 @@
+.app-header {
+    /* Cor de fundo primária para a barra de navegação */
+    background-color: #007bff;
+    padding: 15px 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    display: flex;
+    align-items: center;
+}
+
+.app-header nav {
+    display: flex;
+    gap: 25px; /* Espaço entre os links */
+}
+
+.app-header nav a {
+    color: white; /* Cor do texto padrão */
+    text-decoration: none; /* Remove sublinhado */
+    font-weight: 600; /* Texto semi-negrito */
+    font-size: 1.1em;
+    padding: 5px 10px; /* Preenchimento para área de clique */
+    border-radius: 4px; /* Cantos levemente arredondados */
+    transition: background-color 0.3s, color 0.3s; /* Transição suave para hover */
+}
+
+/* Efeito ao passar o mouse */
+.app-header nav a:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Fundo branco transparente */
+    color: #ffc107; /* Cor de destaque (amarelo) */
+}
