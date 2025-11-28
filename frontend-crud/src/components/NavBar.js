@@ -13,11 +13,6 @@ function NavBar(){
             {/* Lista de Links */}
             <ul className="nav-links">
                 
-                {/* 1. Início */}
-                <li>
-                    <Link to="/">Início</Link>
-                </li>
-                
                 {/* 2. Listagem (Gerenciamento) */}
                 <li>
                     <Link to="/listar">Gerenciar Produtos/Categorias</Link>

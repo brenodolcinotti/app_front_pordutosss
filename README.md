@@ -95,6 +95,16 @@ Vai mostrar no console:
 
 Ficará ativo aguardando chamadas do frontend.
 
+-Após isso pode ser que dê erro no spark por não puxar as lib.
+
+Então para arrumar:
+-Entre em Java Projects no canto esquerdo 
+-Entre em referenced libraries
+-E clique no +
+-Depois irá abrir o explorador, e entre ná pasta crud_pruduto
+-Entre em pasta lib
+-Selecione todas e dê ok
+
 3. Iniciar o Frontend (React)
 
 Em um terminal separado:
