@@ -11,33 +11,6 @@ const CategoriesPage = () => {
     const [editingCategory, setEditingCategory] = useState(null); // Para o modo PUT
     const [searchId, setSearchId] = useState(''); // Para a busca por ID (GET individual)
 
-
-    const [nome, setNome] = useState("");
-    const [preco, setPreco] = useState("");
-    const [estoque, setEstoque] = useState("");
-    const [id_categoria, setIdCategoria] = useState("");
-
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try{
-            const response = await fetch("http://localhost:4567", {
-                method: "POST",
-                headers:  {"Content-Type" : "application/json"},
-                body: JSON.stringify({nome: nome, preco: preco, estoque: estoque, id_categoria: id_categoria})
-            })
-            const data = await response.json();
-             console.log("Categoria criada: ", data)
-
-             setNome("")
-             setPreco("")
-             setEstoque("")
-             setIdCategoria("")
-        } catch(error){
-            console.log("ERROR: erro ao adicionar:", error)
-        }
-    }
-
     // GET: Carregar todas as categorias
     const fetchCategories = async () => {
         setLoading(true);
@@ -118,7 +91,6 @@ const CategoriesPage = () => {
             <CategoryForm
                 initialData={editingCategory}
                 onSave={handleSave}
-                onSubmit={handleSubmit}
                 onCancel={() => setEditingCategory(null)}
             />
            
