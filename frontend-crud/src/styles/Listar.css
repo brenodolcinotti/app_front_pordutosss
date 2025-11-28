@@ -1,0 +1,239 @@
+/* -- VARIÁVEIS CSS -- */
+:root {
+    --cor-primaria: #1e3a8a; /* Azul escuro (Texto principal) */
+    --cor-secundaria: #3b82f6; /* Azul claro (Destaque/Bordas) */
+    --cor-fundo: #f8fafc; /* Fundo muito claro */
+    --cor-texto: #333333;
+    
+    --cor-sucesso: #10b981; /* Verde esmeralda */
+    --cor-erro: #ef4444; /* Vermelho vibrante */
+    
+    --cor-btn-editar: #2563eb; /* Azul para Editar */
+    --cor-btn-excluir: #dc2626; /* Vermelho para Excluir */
+    --cor-btn-salvar: #059669; /* Verde para Salvar */
+    --cor-btn-cancelar: #6b7280; /* Cinza para Cancelar */
+}
+
+/* -------------------------------------------------------------------------- */
+/* CONTAINER GERAL */
+/* -------------------------------------------------------------------------- */
+.listar-container {
+    max-width: 95%;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--cor-texto);
+}
+
+.listar-container h2 {
+    text-align: center;
+    color: var(--cor-primaria);
+    margin-bottom: 25px;
+}
+
+.listar-container h3 {
+    color: var(--cor-primaria);
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+/* -------------------------------------------------------------------------- */
+/* ABAS DE NAVEGAÇÃO (PRODUTOS / CATEGORIAS) */
+/* -------------------------------------------------------------------------- */
+.abas {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.aba {
+    padding: 10px 15px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    color: #6b7280;
+    transition: all 0.3s ease;
+}
+
+.aba:hover {
+    color: var(--cor-secundaria);
+}
+
+.aba.ativa {
+    color: var(--cor-primaria);
+    border-bottom-color: var(--cor-secundaria);
+}
+
+/* -------------------------------------------------------------------------- */
+/* MENSAGENS DE FEEDBACK */
+/* -------------------------------------------------------------------------- */
+.mensagem {
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    text-align: center;
+    border: 1px solid transparent;
+    opacity: 0.95;
+}
+
+.mensagem.sucesso {
+    background-color: #d1fae5;
+    color: var(--cor-sucesso);
+    border-color: var(--cor-sucesso);
+}
+
+.mensagem.erro {
+    background-color: #fee2e2;
+    color: var(--cor-erro);
+    border-color: var(--cor-erro);
+}
+
+.sem-dados {
+    padding: 20px;
+    text-align: center;
+    color: #9ca3af;
+    font-style: italic;
+    background-color: #f3f4f6;
+    border-radius: 8px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* TABELAS */
+/* -------------------------------------------------------------------------- */
+
+/* Container para rolagem horizontal em telas pequenas */
+.tabela-scroll {
+    overflow-x: auto;
+    width: 100%;
+    /* Remove a sombra do container para não cortar na borda */
+    box-shadow: none; 
+}
+
+.tabela {
+    width: 100%;
+    border-collapse: separate; /* Permite bordas arredondadas e espaçamento */
+    border-spacing: 0;
+    min-width: 600px; /* Garante que a tabela não fique muito estreita */
+}
+
+.tabela th, .tabela td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb; /* Linha de separação leve */
+}
+
+/* Estilo do cabeçalho */
+.tabela th {
+    background-color: var(--cor-primaria);
+    color: #ffffff;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 14px;
+    position: sticky;
+    top: 0; /* Ajuda a manter o cabeçalho visível durante a rolagem vertical, se a tabela for grande */
+}
+
+/* Arredondamento dos cantos do cabeçalho */
+.tabela th:first-child { border-top-left-radius: 8px; }
+.tabela th:last-child { border-top-right-radius: 8px; }
+
+/* Efeito Zebra para linhas */
+.tabela tbody tr:nth-child(even) {
+    background-color: #f9f9f9; 
+}
+
+.tabela tbody tr:hover {
+    background-color: #f0f0f0;
+    transition: background-color 0.2s;
+}
+
+/* Estilo especial para a linha em edição */
+.tabela tbody tr.editando {
+    background-color: #fffbe6; /* Fundo amarelo claro para destacar a linha em edição */
+    outline: 2px solid var(--cor-aviso);
+}
+
+.tabela td {
+    color: var(--cor-texto);
+    font-size: 15px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* AÇÕES E BOTÕES */
+/* -------------------------------------------------------------------------- */
+.acoes-container {
+    display: flex;
+    gap: 8px;
+    flex-wrap: nowrap; /* Não quebra as ações */
+}
+
+.acoes-container button {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+
+/* Botões de Ação na Tabela (Modo Normal) */
+.btn-editar {
+    background-color: var(--cor-btn-editar);
+    color: white;
+}
+.btn-editar:hover {
+    background-color: #1e40af;
+}
+
+.btn-excluir {
+    background-color: var(--cor-btn-excluir);
+    color: white;
+}
+.btn-excluir:hover {
+    background-color: #b91c1c;
+}
+
+/* Botões de Ação na Tabela (Modo Edição) */
+.btn-salvar {
+    background-color: var(--cor-btn-salvar);
+    color: white;
+}
+.btn-salvar:hover {
+    background-color: #047857;
+}
+
+.btn-cancelar {
+    background-color: var(--cor-btn-cancelar);
+    color: white;
+}
+.btn-cancelar:hover {
+    background-color: #4b5563;
+}
+
+/* Estilizando Inputs na Edição de Célula */
+.tabela tr.editando input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.tabela tr.editando input:focus {
+    border-color: var(--cor-secundaria);
+    box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.5);
+    outline: none;
+}

@@ -1,24 +1,28 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import CategoriesPage from './pages/CategoriesPage';
-import ProductsPage from './pages/ProductsPage';
-import Header from './components/Header'; // Componente de navegação
+import NavBar from './components/NavBar';
+import Home from './pages/Home';
+import Produto from './pages/Produto';
+import Categoria from './pages/Categoria';
+import Listar from './pages/Listar'; 
+import './App.css';
 
-const App = () => {
-    return (
-        <Router>
-            <Header /> {/* Inclui a navegação */}
-            <div className="main-content">
-                <Routes>
-                    {/* Rota padrão para categorias */}
-                    <Route path="/" element={<CategoriesPage />} />
-                    <Route path="/categorias" element={<CategoriesPage />} />
-                    {/* Rota para produtos */}
-                    <Route path="/produtos" element={<ProductsPage />} />
-                </Routes>
-            </div>
-        </Router>
-    );
-};
+function App() {
+  return (
+    <Router>
+      <div className="App">
+        <NavBar />
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/produto" element={<Produto />} />
+            <Route path="/categoria" element={<Categoria />} />
+            <Route path="/listar" element={<Listar />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
+  );
+}
 
 export default App;
