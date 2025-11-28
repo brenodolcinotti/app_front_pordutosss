@@ -7,54 +7,32 @@ import util.ConnectionFactory;
 
 public class App {
     public static void main(String[] args) {
+                port(4567);
 
-        // Exercício 2
-        // Produto produto = new Produto("Notebook", 3575.73, 30);
-        // System.out.println(produto.toString());
+        // CORS AQUI – NO MESMO main QUE INICIA O SERVIDOR
+        options("/*", (request, response) -> {
+            String headers = request.headers("Access-Control-Request-Headers");
+            if (headers != null) {
+                response.header("Access-Control-Allow-Headers", headers);
+            }
+            String method = request.headers("Access-Control-Request-Method");
+            if (method != null) {
+                response.header("Access-Control-Allow-Methods", method);
+            }
+            return "OK";
+        });
 
-        // Exercício 3
-        // try {
-        // ConnectionFactory.getConnection();
-        // System.out.println("Conexão bem sucedida!");
-        // } catch (Exception e) {
-        // System.out.println(e.getMessage());
-        // }
+        before((request, response) -> {
+            response.header("Access-Control-Allow-Origin", "*");
+            response.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+            response.header("Access-Control-Allow-Headers", "Content-Type");
+        });
 
-        // Exercício 4
-        // ProdutoDAO produtoDAO = new ProdutoDAO();
-        // for (Produto produto : produtoDAO.buscarTodos()) {
-        // System.out.println(produto.toString());
-        // }
+        // Inicializa as rotas
+        ApiProduto rotas = new ApiProduto();
+        rotas.configurarRotas();
 
-        // Exercício 5
-        // ProdutoDAO produtoDAO = new ProdutoDAO();
-        // Produto produto = produtoDAO.buscarPorId(1L);
-
-        // if (produto != null)
-        //     System.out.println(produto.toString());
-        // else
-        //     System.out.println("Produto não encontrado!");
-
-        // produto = produtoDAO.buscarPorId(3L);
-        // if (produto != null)
-        //     System.out.println(produto.toString());
-        // else
-        //     System.out.println("Produto não encontrado!");
-
-        // Exercício 6
-        // ProdutoDAO produtoDAO = new ProdutoDAO();
-        // Produto produto = new Produto("Notebook", 3575.73, 30);
-        // produtoDAO.inserir(produto);
-        // System.out.println(produto.toString());
-
-        // Exercício 7
-        // ProdutoDAO produtoDAO = new ProdutoDAO();
-        // Produto produto = new Produto(3L, "Notebook", 3500.99, 25);
-        // produtoDAO.atualizar(produto);
-
-        // Exercício 8
-        // ProdutoDAO produtoDAO = new ProdutoDAO();
-        // produtoDAO.deletar(3L);
+        System.out.println("Servidor iniciado na porta 4567");
 
     }
 }

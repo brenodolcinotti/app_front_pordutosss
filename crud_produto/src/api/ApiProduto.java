@@ -13,27 +13,6 @@ import com.google.gson.Gson;
 
 public class ApiProduto {
 
-    options("/*", (request, response) -> {
-    String accessControlRequestHeaders = request.headers("Access-Control-Request-Headers");
-    if (accessControlRequestHeaders != null) {
-        response.header("Access-Control-Allow-Headers", accessControlRequestHeaders);
-    }
-
-    String accessControlRequestMethod = request.headers("Access-Control-Request-Method");
-    if (accessControlRequestMethod != null) {
-        response.header("Access-Control-Allow-Methods", accessControlRequestMethod);
-    }
-
-    return "OK";
-});
-
-before((request, response) -> {
-    response.header("Access-Control-Allow-Origin", "*");
-    response.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-    response.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-});
-
-
     // instancia do DAO e o GSON
     private static final ProdutoDAO dao = new ProdutoDAO();
     private static final Gson gson = new Gson();
