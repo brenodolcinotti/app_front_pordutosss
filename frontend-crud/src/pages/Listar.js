@@ -119,7 +119,7 @@ function Listar() {
                 nome: nome,
                 preco: parseFloat(preco),
                 estoque: parseInt(estoque),
-                categoria: categoria.id ? { id: categoria.id, nome: categoria.nome } : null
+                id_categoria: categoria.id ? { id: categoria.id, nome: categoria.nome } : null
             };
 
             const response = await fetch(`http://localhost:4567/produtos/${id}`, {

@@ -56,7 +56,7 @@ function Produto() {
             nome: produto.nome,
             preco: parseFloat(produto.preco),
             estoque: parseInt(produto.estoque) || 0,
-            categoriaId: parseInt(produto.categoriaId) || null
+            id_categoria: parseInt(produto.categoriaId) || null
         };
 
         console.log("Enviando para API:", produtoData);

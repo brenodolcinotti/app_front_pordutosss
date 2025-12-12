@@ -5,11 +5,36 @@ public class Produto {
     // atributos
     private Long id;
     private String nome;
-    private double preco;
+     private double preco;
     private int estoque;
+    private Categoria categoria;
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+   
 
     // contrutor vazio (necessário para frameworks como Gson)
     public Produto() {
+    }
+
+    public Produto(String nome, double preco, int estoque, Categoria categoria) {
+        this.nome = nome;
+        this.preco = preco;
+        this.estoque = estoque;
+        this.categoria = categoria;
+    }
+
+    public Produto(Long id, String nome, double preco, int estoque, Categoria categoria) {
+        this.id = id;
+        this.nome = nome;
+        this.preco = preco;
+        this.estoque = estoque;
+        this.categoria = categoria;
     }
 
     // construtor com todos os campos
