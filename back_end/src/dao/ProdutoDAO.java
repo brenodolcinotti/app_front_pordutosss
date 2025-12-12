@@ -106,37 +106,41 @@ public class ProdutoDAO {
     // ------------------------------------
     public void inserir(Produto produto) {
 
-        // usa Statement.RETURN_GENERATED_KEYS para solicitar o ID gerado
-        String sql = "INSERT INTO produtos (nome, preco, estoque, id_categoria) VALUES (?, ?, ?, ?)";
+    String sql = "INSERT INTO produtos (nome, preco, estoque, id_categoria) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = ConnectionFactory.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+    try (Connection conn = ConnectionFactory.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            // define os parâmetros da query
-            stmt.setString(1, produto.getNome());
-            stmt.setDouble(2, produto.getPreco());
-            stmt.setInt(3, produto.getEstoque());
+        // 1. Define parâmetros obrigatórios
+        stmt.setString(1, produto.getNome());
+        stmt.setDouble(2, produto.getPreco());
+        stmt.setInt(3, produto.getEstoque());
 
-            if(produto.getCategoria() != null && produto.getCategoria().getId() != null){
-                stmt.setLong(4, produto.getCategoria().getId());
-            }
-
-            // executa a inserção
-            stmt.executeUpdate();
-
-            // recupera a chave gerada (o novo ID)
-            try (ResultSet rs = stmt.getGeneratedKeys()) {
-                if (rs.next()) {
-                    // define o ID no objeto Produto que foi passado (importante para a API)
-                    produto.setId(rs.getLong(1));
-                }
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Erro ao inserir produto: " + produto.getNome() + ". Detalhes: " + e.getMessage());
-            e.printStackTrace();
+        // 2. CORREÇÃO: Define o parâmetro 4 (id_categoria) usando lógica condicional.
+        if(produto.getCategoria() != null && produto.getCategoria().getId() != null){
+            // Se o ID da categoria for válido, usa o ID
+            stmt.setLong(4, produto.getCategoria().getId());
+        } else {
+            // Se o ID da categoria for nulo/inválido, insere NULL no banco
+            // IMPORTANTE: O tipo deve ser definido, aqui usamos Types.BIGINT para um Long/BIGINT
+            stmt.setNull(4, java.sql.Types.BIGINT); 
         }
+
+        // 3. Executa a inserção
+        stmt.executeUpdate();
+
+        // 4. Recupera a chave gerada (o novo ID)
+        try (ResultSet rs = stmt.getGeneratedKeys()) {
+            if (rs.next()) {
+                produto.setId(rs.getLong(1));
+            }
+        }
+
+    } catch (SQLException e) {
+        System.err.println("Erro ao inserir produto: " + produto.getNome() + ". Detalhes: " + e.getMessage());
+        e.printStackTrace();
     }
+}
 
     // ------------------------------------
     // UPDATE

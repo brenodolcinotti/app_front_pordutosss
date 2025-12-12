@@ -52,12 +52,14 @@ function Produto() {
         }
 
         // Formato correto que sua API usa
-        const produtoData = {
+     const produtoData = {
             nome: produto.nome,
             preco: parseFloat(produto.preco),
             estoque: parseInt(produto.estoque) || 0,
-            id_categoria: parseInt(produto.categoriaId) || null
-        };
+            categoria: { 
+                id: parseInt(produto.categoriaId) || null 
+            }
+};
 
         console.log("Enviando para API:", produtoData);
 

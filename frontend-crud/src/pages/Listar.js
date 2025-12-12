@@ -10,6 +10,8 @@ function Listar() {
     const [idEditando, setIdEditando] = useState(null);
     const [dadosTemporarios, setDadosTemporarios] = useState({});
 
+    console.log(produtos)
+
     // ... (Funções de state, useEffect, busca e exclusão mantidas) ...
     useEffect(() => {
         buscarCategorias();
