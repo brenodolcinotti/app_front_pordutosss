@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from "react";
-import "../styles/Form.css"; // Mantendo a importação do CSS
+import "../styles/Form.css";
 
 function Produto() {
     const [produto, setProduto] = useState({
         nome: "",
         preco: "",
         estoque: "",
-        categoria: { id: "" }
+        categoriaId: ""  // usado no select
     });
+
     const [categorias, setCategorias] = useState([]);
     const [mensagem, setMensagem] = useState("");
     const [tipoMensagem, setTipoMensagem] = useState("");
 
-    // Buscar categorias ao carregar o componente
+    // Buscar categorias
     useEffect(() => {
         buscarCategorias();
     }, []);
 
     const buscarCategorias = async () => {
         try {
-            // PORTA MANTIDA
             const response = await fetch("http://localhost:4567/categorias");
             if (response.ok) {
                 const data = await response.json();
@@ -33,39 +33,35 @@ function Produto() {
         }
     };
 
+    // Atualiza campos do formulário
     const handleChange = (e) => {
         const { name, value } = e.target;
-        if (name === "categoriaId") {
-            setProduto({
-                ...produto,
-                categoria: { id: value || null }
-            });
-        } else {
-            setProduto({
-                ...produto,
-                [name]: value
-            });
-        }
+
+        setProduto((prev) => ({
+            ...prev,
+            [name]: value
+        }));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        // Validação básica
+
         if (!produto.nome || !produto.preco) {
             mostrarMensagem("Nome e preço são obrigatórios", "erro");
             return;
         }
 
+        // Formato correto que sua API usa
         const produtoData = {
             nome: produto.nome,
             preco: parseFloat(produto.preco),
             estoque: parseInt(produto.estoque) || 0,
-            categoria: produto.categoria.id ? { id: parseInt(produto.categoria.id) } : null
+            categoriaId: parseInt(produto.categoriaId) || null
         };
 
+        console.log("Enviando para API:", produtoData);
+
         try {
-            // PORTA MANTIDA
             const response = await fetch("http://localhost:4567/produtos", {
                 method: "POST",
                 headers: {
@@ -77,17 +73,20 @@ function Produto() {
             if (response.ok) {
                 const novoProduto = await response.json();
                 mostrarMensagem(`Produto "${novoProduto.nome}" criado com sucesso!`, "sucesso");
-                // Limpar formulário
+
+                // limpar formulário
                 setProduto({
                     nome: "",
                     preco: "",
                     estoque: "",
-                    categoria: { id: "" }
+                    categoriaId: ""
                 });
+
             } else {
                 const erro = await response.json();
                 mostrarMensagem(erro.mensagem || "Erro ao criar produto", "erro");
             }
+
         } catch (error) {
             console.error("Erro:", error);
             mostrarMensagem("Erro de conexão com o servidor", "erro");
@@ -106,17 +105,15 @@ function Produto() {
     return (
         <div className="form-container">
             <h2>Cadastrar Novo Produto 🛒</h2>
-            
+
             <form onSubmit={handleSubmit} className="form">
-                
-                {/* 🔄 ORDEM ALTERADA: A mensagem de feedback foi movida para DENTRO do <form>. */}
+
                 {mensagem && (
                     <div className={`mensagem ${tipoMensagem}`}>
                         {mensagem}
                     </div>
                 )}
-                
-                {/* Campo Nome do Produto */}
+
                 <div className="form-group full-width">
                     <label htmlFor="nome">Nome do Produto *</label>
                     <input
@@ -130,9 +127,7 @@ function Produto() {
                     />
                 </div>
 
-                <div className="form-group-row"> {/* Nova div para agrupar campos lado a lado */}
-                    
-                    {/* 🔄 ORDEM ALTERADA: Estoque está antes de Preço */}
+                <div className="form-group-row">
                     <div className="form-group half-width">
                         <label htmlFor="estoque">Estoque</label>
                         <input
@@ -146,7 +141,6 @@ function Produto() {
                         />
                     </div>
 
-                    {/* Campo Preço */}
                     <div className="form-group half-width">
                         <label htmlFor="preco">Preço *</label>
                         <input
@@ -163,14 +157,13 @@ function Produto() {
                     </div>
                 </div>
 
-
-                {/* Campo Categoria */}
+                {/* SELECT corrigido */}
                 <div className="form-group full-width">
                     <label htmlFor="categoriaId">Categoria</label>
                     <select
                         id="categoriaId"
                         name="categoriaId"
-                        value={produto.categoria.id}
+                        value={produto.categoriaId}
                         onChange={handleChange}
                     >
                         <option value="">Selecione uma categoria</option>
